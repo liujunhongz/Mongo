@@ -1,6 +1,26 @@
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 
+## 用法
 
+###1. 读取excel文件
+
+```
+java -jar mongo.jar -import file
+```
+###2. 导出mongo数据到excel表中
+
+```
+java -jar mongo.jar [-export]
+```
+###3. 查看帮助
+
+```
+java -jar mongo.jar -h
+```
+    
+## 资料
+
+- [mongo-java-driver](https://github.com/mongodb/mongo-java-driver)
 - [POI](https://poi.apache.org/download.html)
 - [Cglib](https://github.com/cglib/cglib)
 
