@@ -7,10 +7,26 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @Author: 诸葛不亮
+ * @Description: MongoDB数据库导出，Excel读取
+ */
 public class Main {
 
 
     public static void main(String[] args) throws IOException {
+        if (args != null && args.length == 2) {
+            String arg = args[0];
+            switch (arg) {
+                case "--import":
+                    main_import(args[1]);
+                    break;
+                case "--export":
+                    main_export();
+                    break;
+            }
+            return;
+        }
         main_export();
     }
 
@@ -62,9 +78,9 @@ public class Main {
         MongoUtils.destory();
     }
 
-    public static void main_import() throws IOException {
-
-        List<Object> objs = ExcelUtils.importExcel("./result.xls");
+    public static void main_import(String xls) throws IOException {
+        System.out.println("读取xls文件：");
+        List<Object> objs = ExcelUtils.importExcel(xls);
         for (Object obj : objs) {
             System.out.println(obj);
         }

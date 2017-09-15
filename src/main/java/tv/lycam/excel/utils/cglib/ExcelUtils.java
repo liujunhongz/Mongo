@@ -49,12 +49,20 @@ public class ExcelUtils {
      * @throws IOException
      */
     public static List<Object> importExcel(String file, int sheetIndex) throws IOException {
+        List<Object> result = new ArrayList<Object>();
+
+        if (file == null || file.isEmpty()) {
+            return result;
+        }
         FileInputStream in = null;
-        List<Object> result = null;
         try {
             in = new FileInputStream(file);
-            result = new ArrayList<Object>();
-            Workbook wb = new HSSFWorkbook(in);
+            Workbook wb;
+            if (file.endsWith(".xlsx")) {
+                wb = new XSSFWorkbook(in);
+            } else {
+                wb = new HSSFWorkbook(in);
+            }
             Sheet sheet = wb.getSheetAt(sheetIndex);
             Set<String> fieldNames = CglibUtils.getPropertyMap().keySet();
             CglibBean bean;
@@ -67,6 +75,9 @@ public class ExcelUtils {
                 Object o = bean.getObject();
                 for (String fieldName : fieldNames) {
                     Cell cell = row.getCell(rowNum);
+                    if (cell == null) {
+                        continue;
+                    }
                     Field field = PropertyUtils.getFieldByName(o.getClass(), fieldName);
                     if (field.getType() == Boolean.class) {
                         boolean value = cell.getBooleanCellValue();

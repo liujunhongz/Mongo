@@ -1,0 +1,6 @@
+Author: 诸葛不亮
+Description: MongoDB数据库导出，Excel读取
+Main-Class: tv.lycam.excel.Main
+Manifest-Version: 1.0
+
+
