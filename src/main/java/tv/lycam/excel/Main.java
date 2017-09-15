@@ -15,14 +15,29 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        if (args != null && args.length == 2) {
-            String arg = args[0];
+        if (args != null) {
+
+            String arg = "-h";
+            if (args.length >= 1) {
+                arg = args[0];
+            }
             switch (arg) {
-                case "--import":
-                    main_import(args[1]);
+                case "-import":
+                    if (args.length == 2) {
+                        main_import(args[1]);
+                    } else {
+                        System.out.println("缺少参数。eg: java -jar mongo.jar file");
+                    }
                     break;
-                case "--export":
+                case "-export":
                     main_export();
+                    break;
+                case "-h":
+                default:
+                    System.out.println("1. 读取excel文件");
+                    System.out.println("java -jar mongo.jar -import file");
+                    System.out.println("2. 导出mongo数据到excel表中");
+                    System.out.println("java -jar mongo.jar [-export]");
                     break;
             }
             return;
