@@ -1,5 +1,5 @@
 .idea
+out
 target
 *.xls
 .git
-.out
