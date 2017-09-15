@@ -2,22 +2,22 @@
 
 ## 用法
 
-###1. 读取excel文件
+### 1. 读取excel文件
 
 ```
 java -jar mongo.jar -import file
 ```
-###2. 导出mongo数据到excel表中
+### 2. 导出mongo数据到excel表中
 
 ```
 java -jar mongo.jar [-export]
 ```
-###3. 查看帮助
+### 3. 查看帮助
 
 ```
 java -jar mongo.jar -h
 ```
-    
+
 ## 资料
 
 - [mongo-java-driver](https://github.com/mongodb/mongo-java-driver)
@@ -26,7 +26,7 @@ java -jar mongo.jar -h
 
 # License
 
-   
+
     Copyright 2016-2017 XBeats
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,4 +40,3 @@ java -jar mongo.jar -h
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
