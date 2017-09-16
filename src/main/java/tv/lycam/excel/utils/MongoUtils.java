@@ -66,19 +66,25 @@ public class MongoUtils {
 
         if (cursor != null) {
             for (Document document : cursor) {
-                String[] notnulls = CglibUtils.NotNull.split(",");
-                boolean isMatch = false;
-                for (String notnull : notnulls) {
-                    Object phone = document.get(notnull);
-                    if (phone == null || phone.getClass() == BsonUndefined.class) {
-                        isMatch = false;
-                        break;
+                if (!"".equals(CglibUtils.NotNull)) {
+                    String[] notnulls = CglibUtils.NotNull.split(",");
+                    boolean isMatch = false;
+                    for (String notnull : notnulls) {
+                        Object obj = document.get(notnull);
+                        if (obj == null || obj.getClass() == BsonUndefined.class) {
+                            isMatch = false;
+                            break;
+                        }
+                        isMatch = true;
                     }
-                    isMatch = true;
-                }
-                if (isMatch) {
+                    if (isMatch) {
+                        String json = JSON.toJSONString(document, true);
+                        dbs.add(json);
+                    }
+                } else {
                     String json = JSON.toJSONString(document, true);
                     dbs.add(json);
+
                 }
             }
         }

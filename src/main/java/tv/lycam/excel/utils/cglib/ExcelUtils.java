@@ -1,6 +1,7 @@
 package tv.lycam.excel.utils.cglib;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -68,6 +69,17 @@ public class ExcelUtils {
             CglibBean bean;
             for (Row row : sheet) {
                 if (row.getRowNum() < 1) {
+                    if (fieldNames.size() == 0) {
+                        short firstCellNum = row.getFirstCellNum();
+                        short lastCellNum = row.getLastCellNum();
+                        fieldNames = new LinkedHashSet<>();
+                        for (int i = 0; i < lastCellNum; i++) {
+                            Cell cell = row.getCell(i);
+                            String fieldName = cell.getStringCellValue();
+                            fieldNames.add(fieldName);
+                        }
+                        CglibUtils.setPropertyMap(fieldNames);
+                    }
                     continue;
                 }
                 int rowNum = 0;
@@ -94,6 +106,7 @@ public class ExcelUtils {
                     } else if (field.getType() == RichTextString.class) {
                         RichTextString value = cell.getRichStringCellValue();
                         bean.setValue(fieldName, value);
+                    } else {
                     }
                     rowNum++;
                 }
@@ -119,7 +132,11 @@ public class ExcelUtils {
         int rowCount = 0;
 
         Set<String> fieldNames = CglibUtils.getPropertyMap().keySet();
-
+        if (fieldNames.size() == 0) {
+            JSONObject jobj = JSONObject.parseObject(jsons.get(0));
+            fieldNames = jobj.keySet();
+            CglibUtils.setPropertyMap(fieldNames);
+        }
         HSSFRow firstRow = sheet.createRow(0);
         for (String key : fieldNames) {
             Cell cell = firstRow.createCell(rowCount);

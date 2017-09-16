@@ -51,4 +51,10 @@ public class CglibUtils {
         CglibBean bean = new CglibBean(getPropertyMap());
         return bean;
     }
+
+    public static void setPropertyMap(Set<String> fieldName) {
+        for (String name : fieldName) {
+            propertyMap.put(name, Object.class);
+        }
+    }
 }
